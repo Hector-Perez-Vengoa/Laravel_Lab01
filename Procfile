@@ -1,3 +1,2 @@
-web: vendor/bin/heroku-php-apache2 public/
-# Opcional: ejecutar migraciones automáticamente (activar solo si quieres)
+web: bash deploy/start-koyeb.sh
 # release: php artisan migrate --force

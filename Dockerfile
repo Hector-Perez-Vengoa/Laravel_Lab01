@@ -18,9 +18,9 @@ FROM php:8.2-apache
 
 # Instalar extensiones necesarias (pgsql, zip, etc.)
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-       git libpq-dev libzip-dev unzip \
-    && docker-php-ext-install pdo pdo_pgsql zip \
+     && apt-get install -y --no-install-recommends \
+         git libpq-dev libzip-dev libsqlite3-dev unzip \
+     && docker-php-ext-install pdo pdo_pgsql pdo_sqlite zip \
     && rm -rf /var/lib/apt/lists/*
 
 # Configurar Apache DocumentRoot a public/
