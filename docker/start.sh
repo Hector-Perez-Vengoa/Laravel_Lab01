@@ -13,6 +13,19 @@ if [[ -f artisan ]]; then
   php artisan cache:clear || true
   php artisan view:clear || true
   php artisan route:clear || true
+  if [[ "${RUN_MIGRATIONS}" == "1" ]]; then
+    echo "==> Intentando migraciones (RUN_MIGRATIONS=1)"
+    tries=${MIGRATE_RETRIES:-5}
+    delay=${MIGRATE_SLEEP:-3}
+    for i in $(seq 1 "$tries"); do
+      if php artisan migrate --force; then
+        echo "Migraciones aplicadas"
+        break
+      else
+        echo "Intento $i/$tries fallido; reintentando en ${delay}s"; sleep "$delay"
+      fi
+    done
+  fi
   if [[ -n "${APP_KEY:-}" ]]; then
     php artisan optimize || true
   fi

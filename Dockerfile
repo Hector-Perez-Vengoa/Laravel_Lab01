@@ -5,6 +5,15 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-progress --no-interaction
 
 # Etapa 2: imagen de aplicación
+FROM node:20 AS frontend
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+COPY resources ./resources
+COPY vite.config.js ./
+COPY public ./public
+RUN npm run build || echo "(WARN) Falló build de assets; verifica dependencias"
+
 FROM php:8.2-apache
 
 # Instalar extensiones necesarias (pgsql, zip, etc.)
@@ -25,6 +34,7 @@ WORKDIR /var/www/html
 # Copiar aplicación (sin vendor) y luego vendor
 COPY . /var/www/html
 COPY --from=vendor /app/vendor /var/www/html/vendor
+COPY --from=frontend /app/public/build /var/www/html/public/build
 
 # Crear y asegurar rutas de cache/almacenamiento
 RUN set -eux; \
@@ -41,7 +51,10 @@ RUN chmod +x /start.sh
 # Variables opcionales
 ENV APP_ENV=production \
     APP_DEBUG=false \
-    LOG_CHANNEL=stderr
+    LOG_CHANNEL=stderr \
+    RUN_MIGRATIONS=0 \
+    MIGRATE_RETRIES=5 \
+    MIGRATE_SLEEP=3
 
 USER www-data
 
