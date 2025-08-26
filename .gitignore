@@ -45,7 +45,6 @@ pnpm-debug.log*
 
 # Bases de datos locales sqlite (evita subir tu data de desarrollo)
 database/*.sqlite
-!database/database.sqlite
 database/*.sqlite-journal
 
 # Coverage
