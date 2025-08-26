@@ -1,3 +1,65 @@
-*
-!data/
-!.gitignore
+## Laravel / PHP estándar ##
+
+# Dependencias Node
+/node_modules
+
+# Compilados Vite / Mix temporales
+/public/hot
+/public/storage
+
+# Claves y almacenamiento
+/storage/*.key
+/storage/app/public
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/views
+/storage/logs
+/bootstrap/cache/*.php
+
+# Entornos
+/.env
+/.env.*.backup
+/.env.backup
+/.env.testing
+
+# PHPUnit / herramientas
+/.phpunit.result.cache
+/.phpunit.cache
+.phpunit.cache/*
+/.php-cs-fixer.cache
+
+# IDE / Editores
+/.idea
+/.vscode
+/.fleet
+
+# Vagrant / Homestead
+/Homestead.yaml
+/Homestead.json
+/.vagrant
+
+# Logs / debug
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Bases de datos locales sqlite (evita subir tu data de desarrollo)
+database/*.sqlite
+database/*.sqlite-journal
+
+# Coverage
+coverage
+
+# Otros
+*.DS_Store
+Thumbs.db
+
+# Mantener .gitignore en directorios vacíos críticos
+!public/.gitignore
+!storage/.gitignore
+!storage/framework/.gitignore
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+!storage/logs/.gitignore
+!bootstrap/cache/.gitignore
