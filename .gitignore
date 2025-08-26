@@ -63,3 +63,4 @@ Thumbs.db
 !storage/framework/views/.gitignore
 !storage/logs/.gitignore
 !bootstrap/cache/.gitignore
+vendor/
